@@ -38,3 +38,12 @@ char *new_strtok(char *str, const char *delim);
 char *check_for_builtins(vars_t *vars);
 void check_for_path(vars_t *vars);
 char **make_env(char **environment);
+
+struct list_t
+{
+char *str;
+struct list *next
+} list_t;
+int print_alias(list_t *node);
+int print_alias(list_t *node)
+char *p = NULL, *a = NULL;
