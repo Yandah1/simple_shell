@@ -5,7 +5,9 @@
  * @shell_vars: shell variables
  * Return: pointer to the function or NULL
  */
-void (*check_for_builtin_commands(shell_vars_t *shell_vars))(shell_vars_t *shell_vars)
+typedef void (*builtin_func_ptr_t)(shell_vars_t *shell_vars);
+
+builtin_func_ptr_t check_for_builtin_commands(shell_vars_t *shell_vars);
 {
 	unsigned int i;
 	builtin_command_t check[] = {
@@ -35,7 +37,8 @@ void new_exit_command(shell_vars_t *shell_vars)
 {
 	int status;
 
-	if (_strcmpr(shell_vars->arguments[0], "exit") == 0 && shell_vars->arguments[1] != NULL)
+	if (_strcmpr(shell_vars->arguments[0], "exit") == 0 &&
+			shell_vars->arguments[1] != NULL)
 	{
 		status = _atoi(shell_vars->arguments[1]);
 		if (status == -1)
@@ -75,7 +78,8 @@ void _env_command(shell_vars_t *shell_vars)
 }
 
 /**
- * new_setenv_command - create a new environment variable, or edit an existing variable
+ * new_setenv_command - create a new environment variable,
+ * or edit an existing variable
  * @shell_vars: shell variables
  *
  * Return: void
