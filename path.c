@@ -24,7 +24,8 @@ int path_execute(char *command, vars_t *shell_vars)
 			wait(&shell_vars->status);
 			if (WIFEXITED(shell_vars->status))
 				shell_vars->status = WEXITSTATUS(shell_vars->status);
-			else if (WIFSIGNALED(shell_vars->status) && WTERMSIG(shell_vars->status) == SIGINT)
+			else if (WIFSIGNALED(shell_vars->status) && WTERMSIG(shell_vars->status)
+					== SIGINT)
 				shell_vars->status = 130;
 			return (0);
 		}
@@ -63,7 +64,7 @@ char *find_path(char **env)
  * @shell_vars: shell variables
  * Return: void
  */
-void check_for_path(shell_vars_t *shell_vars)
+void check_for_path(vars_t *shell_vars)
 {
 	char *path, *path_dup = NULL, *check = NULL;
 	unsigned int i = 0, r = 0;
@@ -133,7 +134,8 @@ int execute_cwd(vars_t *shell_vars)
 				wait(&shell_vars->status);
 				if (WIFEXITED(shell_vars->status))
 					shell_vars->status = WEXITSTATUS(shell_vars->status);
-				else if (WIFSIGNALED(shell_vars->status) && WTERMSIG(shell_vars->status) == SIGINT)
+				else if (WIFSIGNALED(shell_vars->status) &&
+						WTERMSIG(shell_vars->status) == SIGINT)
 					shell_vars->status = 130;
 				return (0);
 			}
@@ -147,7 +149,7 @@ int execute_cwd(vars_t *shell_vars)
 		}
 		return (0);
 	}
-	print_error(vars, ": not found\n");
+	print_error(shell_vars, ": not found\n");
 	shell_vars->status = 127;
 	return (0);
 }

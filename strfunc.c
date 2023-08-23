@@ -20,7 +20,7 @@ ssize_t _puts(char *str)
 }
 
 /**
- * _strdup - function returns pointer to new memalloc 
+ * _strdup - function returns pointer to new memalloc
  * space which contains copy
  * @strtodup: string to be duplicated
  * Return: a pointer to the new duplicated string

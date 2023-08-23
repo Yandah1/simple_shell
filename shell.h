@@ -31,7 +31,7 @@ typedef struct variables
 	char **argv;
 	int status;
 	char **commands;
-} shell_vars_t;
+} vars_t;
 
 /**
  * struct builtins - struct for the builtin functions
@@ -54,8 +54,8 @@ char *_strcat(char *strc1, char *strc2);
 unsigned int _strlen(char *str);
 
 /*BUILINS*/
-void (*check_for_builtins(vars_t *shell_vars))(vars_t shell_*vars);
-void new_exit(shell_vars_t *shell_vars);
+void (*check_for_builtins(vars_t *shell_vars))(vars_t *shell_vars);
+void new_exit(vars_t *shell_vars);
 void _env(vars_t *shell_vars);
 void new_setenv(vars_t *shell_vars);
 void new_unsetenv(vars_t *shell_vars);

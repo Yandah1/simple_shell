@@ -2,7 +2,7 @@
 
 /**
  * check_for_builtins - checks if the command is a builtin
- * @Shell_vars:  shell variables
+ * @shell_vars:  shell variables
  * Return: pointer to the function or NULL
  */
 void (*check_for_builtins(vars_t *shell_vars))(vars_t *shell_vars)
@@ -51,7 +51,7 @@ void new_exit(vars_t *shell_vars)
 		shell_vars->status = status;
 	}
 	free(shell_vars->buffer);
-	frees(shell_vars->av);
+	free(shell_vars->av);
 	free(shell_vars->commands);
 	free_env(shell_vars->env);
 	exit(shell_vars->status);
@@ -76,14 +76,14 @@ void _env(vars_t *shell_vars)
 
 /**
  * new_setenv - create a new environment variable, or edit an existing variable
- * @vars: pointer to struct of variables
+ * @shell_vars: pointer to struct of variables
  *
  * Return: void
  */
 void new_setenv(vars_t *shell_vars)
 {
 	char **key;
-	char *shell_var;
+	char *var;
 
 	if (shell_vars->av[1] == NULL || shell_vars->av[2] == NULL)
 	{
@@ -97,7 +97,7 @@ void new_setenv(vars_t *shell_vars)
 	else
 	{
 		var = add_value(shell_vars->av[1], shell_vars->av[2]);
-		if (shell_var == NULL)
+		if (var == NULL)
 		{
 			print_error(shell_vars, NULL);
 			free(shell_vars->buffer);

@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * make_env - function make the shell environment from 
+ * make_env - function make the shell environment from
  * the environment passed to main
  * @env: environment passed to main
  *
@@ -22,7 +22,7 @@ char **make_env(char **env)
 	}
 	for (i = 0; env[i] != NULL; i++)
 		newenv[i] = _strdup(env[i]);
-	newenv[i] = NULL;
+		newenv[i] = NULL;
 	return (newenv);
 }
 

@@ -29,7 +29,7 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 {
 	size_t len_buffer = 0;
 	unsigned int is_pipe = 0, i;
-	vars_t vars = {NULL, NULL, NULL, 0, NULL, 0, NULL};
+	vars_t shell_vars = {NULL, NULL, NULL, 0, NULL, 0, NULL};
 
 	shell_vars.argv = argv;
 	shell_vars.env = make_env(environment);
@@ -48,7 +48,7 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 		{
 			shell_vars.av = tokenize(shell_vars.commands[i], "\n \t\r");
 			if (shell_vars.av && shell_vars.av[0])
-				if (check_for_builtins(shell_&vars) == NULL)
+				if (check_for_builtins(&shell_vars) == NULL)
 					check_for_path(&shell_vars);
 			free(shell_vars.av);
 		}
