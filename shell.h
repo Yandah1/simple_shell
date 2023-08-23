@@ -14,13 +14,25 @@
 int sub_numbers(int a, int b);
 
 /* SHELL */
-static void signal_handler(int unused_var);
+void signal_handler(int unused_var);
 int main(int argc __attribute__((unused)), char **argv, char **environment);
 
-/*BUILTINS */
+/* Define the shell_vars_t structure */
+typedef struct {
+    int status;
+    char **arguments;
+    char* buffer;
+    char* commands
+
+  
+} shell_vars_t;
+
+/* Define the function pointer type */
 typedef void (*builtin_func_ptr_t)(shell_vars_t *shell_vars);
 
 builtin_func_ptr_t check_for_builtin_commands(shell_vars_t *shell_vars);
+
+/*BUILTINS */
 void new_exit_command(shell_vars_t *shell_vars);
 void _env_command(shell_vars_t *shell_vars);
 void new_setenv_command(shell_vars_t *shell_vars);
@@ -58,7 +70,7 @@ int path_execute(char *command, shell_vars_t *shell_vars);
 char *find_path(char **env);
 void check_for_path(shell_vars_t *shell_vars);
 int execute_cwd(shell_vars_t *shell_vars);
-int check_for_dir(char *str)
+int check_for_dir(char *str);
 
 
 /**
@@ -87,12 +99,8 @@ typedef struct variables
  * @name: name of builtin command
  * @f: function for corresponding builtin
  */
-typedef struct builtins
-{
-	char *name;
-	void (*f)(vars_t *);
-} builtins_t;
 
 char **make_env(char **env);
 void free_env(char **env);
 
+#endif 

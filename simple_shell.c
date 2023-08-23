@@ -6,9 +6,11 @@
  *
  * Return: void
  */
-static void signal_handler(int unused_var)
+void signal_handler(int unused_var)
 {
 	(void) unused_var;
+	int sig_flag = 0;
+
 	if (sig_flag == 0)
 		_puts("\n$ ");
 	else
@@ -27,42 +29,37 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 {
 	size_t buffer_length = 0;
 	unsigned int is_piped = 0, i;
-	int status = 0;
-	char *buffer = NULL;
-	char **commands = NULL;
-	char **arguments = NULL;
+	vat_t shell_vars = {NULL, NULL, NULL, 0, NULL, 0, NULL};
 
-	argv = argv;
-	environment = make_env(environment);
+	shell_vars.argv = argv;
+	shell_vars.env = make_env(environment);
 	signal(SIGINT, signal_handler);
-	if (!isatty(STDIN_FILENO))
-		is_piped = 1;
 	if (is_piped == 0)
 		_puts("$ ");
 	sig_flag = 0;
-	while (getline(&buffer, &buffer_length, stdin) != -1)
+	while (getline(&(shell_vars,buffer), &buffer_length, stdin) != -1)
 	{
 		sig_flag = 1;
-		count++;
-		commands = _tokenize(buffer, ";");
-		for (i = 0; commands && commands[i] != NULL; i++)
+		shell_vars.count++;
+		shell_vars.commands = tokenize(shell_vars.buffer, ";");
+		for (i = 0; shell_vars,commands && shell_vars.commands[i] != NULL; i++)
 		{
-			arguments = _tokenize(commands[i], "\n \t\r");
-			if (arguments && arguments[0])
-				if (check_for_builtins(arguments) == NULL)
-					check_for_path(arguments, environment, &status);
-			free(arguments);
+			shell_vars.av = tokenize(shell_vars.commands[i], "\n \t\r");
+			if (shell_vars.av && shell_vars.av[0])
+				if (check_for_builtins(&shell_vars) == NULL)
+					check_for_path(&shell_vars);
+			free(shell_vars.av);
 		}
-		free(buffer);
-		free(commands);
+		free(shell_vars.buffer);
+		free(shell_vars.commands);
 		sig_flag = 0;
 		if (is_piped == 0)
 			_puts("$ ");
-		buffer = NULL;
+		shell_vars.buffer = NULL;
 	}
 	if (is_piped == 0)
 		_puts("\n");
-	free_env(environment);
-	free(buffer);
-	exit(status);
+	free_env(shell_vars.env);
+	free(shell_vars.buffer);
+	exit(shell_vars.status);
 }

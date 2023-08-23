@@ -116,6 +116,6 @@ unsigned int _strlen(char *str)
 
 	for (len = 0; str[len]; len++)
 		;
+
 	return (len);
 }
-

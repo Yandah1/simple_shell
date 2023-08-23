@@ -64,4 +64,5 @@ char *new_strtok(char *str, const char *delim)
 			next_token = NULL;
 	}
 	return (token_start);
+
 }
