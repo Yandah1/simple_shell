@@ -2,33 +2,33 @@
 
 /**
  * add_key - create a new environment variable
- * @shell_vars: pointer to shell variables
+ * @shell_vars: pointer to struct of variables
  *
  * Return: void
  */
-void add_key(shell_vars_t *shell_vars)
+void add_key(vars_t *shell_vars)
 {
 	unsigned int i;
 	char **newenv;
 
 	for (i = 0; shell_vars->env[i] != NULL; i++)
-	;
+		;
 	newenv = malloc(sizeof(char *) * (i + 2));
 	if (newenv == NULL)
 	{
 		print_error(shell_vars, NULL);
 		shell_vars->status = 127;
-		new_exit_command(shell_vars);
+		new_exit(shell_vars);
 	}
 	for (i = 0; shell_vars->env[i] != NULL; i++)
 		newenv[i] = shell_vars->env[i];
-		newenv[i] = add_value(shell_vars->arguments[1], shell_vars->arguments[2]);
+	newenv[i] = add_value(shell_vars->av[1], shell_vars->av[2]);
 	if (newenv[i] == NULL)
 	{
 		print_error(shell_vars, NULL);
 		free(shell_vars->buffer);
 		free(shell_vars->commands);
-		free(shell_vars->arguments);
+		free(shell_vars->av);
 		free_env(shell_vars->env);
 		free(newenv);
 		exit(127);
@@ -39,9 +39,9 @@ void add_key(shell_vars_t *shell_vars)
 }
 
 /**
- * find_key - finds an environment variable
+ * find_key - function that finds an environment variable
  * @env: array of environment variables
- * @key: environment variable to find
+ * @key: environment variable
  *
  * Return: pointer to address of the environment variable
  */
@@ -52,17 +52,17 @@ char **find_key(char **env, char *key)
 	len = _strlen(key);
 	for (i = 0; env[i] != NULL; i++)
 	{
-	for (j = 0; j < len; j++)
-		if (key[j] != env[i][j])
-			break;
-	if (j == len && env[i][j] == '=')
-		return (&env[i]);
+		for (j = 0; j < len; j++)
+			if (key[j] != env[i][j])
+				break;
+		if (j == len && env[i][j] == '=')
+			return (&env[i]);
 	}
 	return (NULL);
 }
 
 /**
- * add_value - create a new environment variable string
+ * add_value - function that create a new environment variable string
  * @key: variable name
  * @value: variable value
  *
@@ -88,8 +88,8 @@ char *add_value(char *key, char *value)
 }
 
 /**
- * _atoi - converts a string into an integer
- * @str: string to convert
+ * _atoi - function converts a string into an integer
+ * @str: the string
  *
  * Return: the integer value, or -1 if an error occurs
  */
@@ -116,4 +116,3 @@ int _atoi(char *str)
 		return (-1);
 	return (num);
 }
-

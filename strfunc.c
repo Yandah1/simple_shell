@@ -1,9 +1,8 @@
 #include "shell.h"
 
 /**
- * _puts - writes a string to standard output
- * @str: string to write
- *
+ * _puts - function writes a string to standard output
+ * @str: the string
  * Return: number of chars printed or -1 on failure
  */
 ssize_t _puts(char *str)
@@ -21,16 +20,18 @@ ssize_t _puts(char *str)
 }
 
 /**
- * _strdup - returns pointer to new mem alloc space which contains copy
+ * _strdup - function returns pointer to new memalloc
+ * space which contains copy
  * @strtodup: string to be duplicated
  * Return: a pointer to the new duplicated string
  */
 char *_strdup(char *strtodup)
 {
 	char *copy;
+
 	int len, i;
 
-	if (strtodup == NULL)
+	if (strtodup == 0)
 		return (NULL);
 
 	for (len = 0; strtodup[len]; len++)
@@ -44,9 +45,9 @@ char *_strdup(char *strtodup)
 }
 
 /**
- * _strcmpr - compares two strings
- * @strcmp1: first string, of two, to be compared in length
- * @strcmp2: second string, of two, to be compared
+ * _strcmpr - function that compares two strings
+ * @strcmp1: first string
+ * @strcmp2: second string
  * Return: 0 on success, anything else is a failure
  */
 int _strcmpr(char *strcmp1, char *strcmp2)
@@ -64,7 +65,7 @@ int _strcmpr(char *strcmp1, char *strcmp2)
 }
 
 /**
- * _strcat - concatenates two strings
+ * _strcat - function thar concatenates two strings
  * @strc1: first string
  * @strc2: second string
  * Return: pointer
@@ -88,7 +89,7 @@ char *_strcat(char *strc1, char *strc2)
 	else
 	{
 		for (len2 = 0; strc2[len2]; len2++)
-		;
+			;
 	}
 	newlen = len1 + len2 + 2;
 	newstring = malloc(newlen * sizeof(char));
@@ -104,8 +105,8 @@ char *_strcat(char *strc1, char *strc2)
 }
 
 /**
- * _strlen - returns the length of a string
- * @str: string to be measured
+ * _strlen - function that returns the length of a string
+ * @str: string
  * Return: length of string
  */
 unsigned int _strlen(char *str)
@@ -118,4 +119,3 @@ unsigned int _strlen(char *str)
 		;
 	return (len);
 }
-
