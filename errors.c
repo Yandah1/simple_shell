@@ -2,7 +2,7 @@
 
 /**
  * print_error - fuction that prints error messages to standard error
- * @vars: pointer to struct of variables
+ * @shell_vars: pointer to struct of variables
  * @msg: message to be printed
  * Return: void
  */
